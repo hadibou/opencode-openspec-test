@@ -1,0 +1,28 @@
+schema: spec-driven
+
+# Project context, shown to the AI when creating artifacts.
+context: |
+  This is a test project to validate multi-agent execution and Git worktree automation.
+  The project's deliverables are Markdown (.md) files in the `docs/` directory only.
+  All generated content must follow standard Markdown syntax with clear H1/H2 headers.
+  Feature tracking lives in GitHub issues and the GitHub Project board.
+  If something is ambiguous, missing, or contradictory, do not guess and do not wait for an answer in the chat. Record it as an open question in the proposal, or follow your agent's blocked / needs-input procedure.
+  If you hit friction in the workflow, mention it briefly in your final summary.
+
+# Rules injected when generating specific artifacts
+rules:
+  proposal:
+    - Keep proposals concise and explicitly list the target `.md` files to be created or modified.
+  specs:
+    - Include clear acceptance criteria for Markdown header hierarchy and file cross-references.
+  tasks:
+    - Ensure every task maps directly to creating or editing a specific `.md` file.
+    - End with one final validation task that runs the project's test command.
+
+# Operational guidance for the `apply` workflow step
+operations:
+  apply:
+    guidance:
+      - Run the project's test command (the one the pipeline provides) before marking any task as complete in tasks.md.
+      - If validation fails, revert edits to the file and retry fixing the Markdown structure.
+      - Always execute terminal commands using `rtk`.

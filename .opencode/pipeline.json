@@ -1,0 +1,6 @@
+{
+  "owner": "hadibou",
+  "project_number": 4,
+  "worktree_dir": "../worktrees",
+  "test_command": "'C:\\Program Files\\Git\\bin\\bash.exe' ./scripts/test-md.sh"
+}
