@@ -18,7 +18,8 @@ The repository SHALL provide `docs/README.md` as the primary entry point. It SHA
 #### Scenario: Exact test command is documented
 
 - **WHEN** a reader looks for how to validate the documentation
-- **THEN** `docs/README.md` shows the test command exactly as configured in `.opencode/pipeline.json`, including the working directory from which it is run
+- **THEN** `docs/README.md` shows the test command exactly as `./scripts/test-md.sh` and states that it is run from the repository root
+- **AND** the Windows/Git Bash wrapper from `.opencode/pipeline.json` does not appear in the documented command
 
 #### Scenario: README links to the architecture document
 
@@ -39,15 +40,33 @@ The repository SHALL provide `docs/architecture.md` describing the documentation
 - **WHEN** a reader checks what the project produces
 - **THEN** `docs/architecture.md` states that the only deliverables are Markdown files in `docs/` and that the OpenSpec and `.opencode` folders are tooling rather than deliverables
 
-#### Scenario: Test architecture is described
+#### Scenario: Test architecture is described precisely
 
 - **WHEN** a reader checks how documentation is validated
-- **THEN** `docs/architecture.md` identifies the configured test command, the directory it runs from, the checks it is expected to perform (Markdown structure and relative links), and what happens when validation fails
+- **THEN** `docs/architecture.md` states that `./scripts/test-md.sh` is run from the repository root and performs these checks:
+  - `docs/` exists
+  - every `docs/*.md` is non-empty
+  - every `docs/*.md` contains a top-level `#` header
+  - `shellcheck` runs on `scripts/*.sh` when it is installed
+
+#### Scenario: Test script scope is stated
+
+- **WHEN** a reader checks whether this change adds test tooling
+- **THEN** `docs/architecture.md` states that `scripts/test-md.sh` already exists on the default branch and is out of scope for this change
 
 #### Scenario: Architecture links back to the README
 
 - **WHEN** a reader follows the README link in `docs/architecture.md`
 - **THEN** the link resolves to `docs/README.md` using a repository-relative path
+
+### Requirement: Issue and board tracking is described generically
+
+`docs/architecture.md` SHALL describe the issue-to-change workflow and project-board tracking without naming the GitHub Project number or specific status values.
+
+#### Scenario: No board identifiers are documented
+
+- **WHEN** either documentation file is checked for project-board references
+- **THEN** it does not name the project number from `.opencode/pipeline.json` or any board status value
 
 ### Requirement: Documentation uses valid Markdown structure and links
 
@@ -68,7 +87,7 @@ All documentation added by this change SHALL use valid Markdown: exactly one H1 
 - **WHEN** a relative link in either documentation file is resolved from that file's directory
 - **THEN** the target file exists in the repository
 
-#### Scenario: Configured test command succeeds
+#### Scenario: Repository test command succeeds
 
-- **WHEN** the test command configured in `.opencode/pipeline.json` is run from the repository root
-- **THEN** it exits with status 0 and reports no Markdown validation errors
+- **WHEN** `./scripts/test-md.sh` is run from the repository root after both documents are created
+- **THEN** it exits with status 0 after confirming that `docs/` exists, that every `docs/*.md` is non-empty and contains a top-level `#` header, and that `shellcheck` passes on `scripts/*.sh` when it is installed
