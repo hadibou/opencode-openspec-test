@@ -21,3 +21,4 @@
 ## Workflow follow-up
 
 - Archive the change after review and merge, and verify the archived delta updates `project-documentation` without unresolved requirements.
+- Report progress from this file: every plan announcement reproduces these checkbox lines verbatim, once each and in this order, with the checked state shown here, so the issue snapshot and `tasks.md` never disagree. Tasks 1.1 through 3.3 are complete and stay checked.

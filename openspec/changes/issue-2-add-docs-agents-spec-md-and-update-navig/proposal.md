@@ -40,6 +40,7 @@ None.
 - `docs/architecture.md` stays unchanged in this change. The new file adds links to it and to `README.md`, so the documentation set remains connected without editing it.
 - The documented test command stays exactly `./scripts/test-md.sh`, run from the repository root.
 - Detailed failure handling and recovery procedures are out of scope here. The new document only states that a blocked role stops and reports rather than guessing.
+- Plan status is reported from `tasks.md` alone: the Plan block on the issue reproduces the checkbox lines of `tasks.md` verbatim, in order, with their checked state, so the issue never carries a paraphrased or stale task list. The completed implementation tasks stay checked and are not reopened or reordered by this revision.
 
 ## Open questions
 
